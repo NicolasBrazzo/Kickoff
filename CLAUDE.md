@@ -36,4 +36,4 @@ Monorepo con due cartelle indipendenti, ognuna con il suo `package.json`:
 ## Prima di dire che hai finito
 
 - `npm run lint` e `npm run build` dentro `client/` devono passare senza errori.
-- Per le modifiche visive mostra uno screenshot del risultato, a 1440px e a 390px di larghezza.
+- Per le modifiche visive mostra uno screenshot del risultato, a 1440px e a 390px di larghezza, usando gli strumenti del server MCP `playwright`.

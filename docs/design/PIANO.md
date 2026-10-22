@@ -9,7 +9,14 @@ Ogni fase è un compito piccolo e verificabile, da fare in una sessione pulita d
 5. Approva e lascialo lavorare. Alla fine controlla gli screenshot e prova tu nel browser.
 6. Commit. Se qualcosa non va, torna indietro con `/rewind` o con git.
 
-Gli screenshot chiesti nelle verifiche richiedono che Claude Code possa usare il browser: installa l'estensione Claude in Chrome e avvia con `claude --chrome`, oppure attivala una volta per tutte da `/chrome`. Tieni acceso `npm run dev` nel client. Senza l'estensione, fai tu gli screenshot e incollali nella sessione.
+Gli screenshot chiesti nelle verifiche li fa Claude Code tramite il server MCP di Playwright con Firefox, configurato una volta con:
+
+```
+npx playwright install firefox
+claude mcp add playwright -- npx @playwright/mcp@latest --browser firefox
+```
+
+Tieni acceso `npm run dev` nel client. In alternativa, fai tu gli screenshot e incollali nella sessione.
 
 ---
 
