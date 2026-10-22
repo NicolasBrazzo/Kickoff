@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kickoff – Prenotazioni per campi sportivi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..600,0..100,0..1&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;family=Young+Serif&amp;display=swap">
+<style>
+body{margin:0;background:#E6E5DC;color:#122020;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#122020;text-decoration:none}
+a:hover{color:#2F5A3C}
+*{box-sizing:border-box}
+.serif{font-family:var(--fh,'Fraunces',Georgia,serif);font-variation-settings:var(--fv,normal);font-optical-sizing:auto}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:16px;row-gap:40px}
+.full{grid-column:1/-1}
+.section{padding:96px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#122020}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:#2F5A3C}
+.h1{font-weight:500;font-size:clamp(46px,7vw,92px);line-height:1;letter-spacing:-.02em;margin:0}
+.h2{font-weight:500;font-size:clamp(34px,4.6vw,58px);line-height:1.05;letter-spacing:-.015em;margin:20px 0 0}
+.lead{font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:#3E4B4B;margin:0}
+.muted{color:#3E4B4B}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:10px;font:600 16px/1 'Instrument Sans',system-ui,sans-serif;transition:transform .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .25s ease,color .25s ease}
+.btn .arr{transition:transform .25s ease}
+.btn:hover .arr{transform:translateX(3px)}
+.btn-primary{background:#1F3B2D;color:#E6E5DC}
+.btn-primary:hover{background:#122020;color:#E6E5DC;transform:translateY(-1px);box-shadow:0 8px 20px rgba(18,32,32,.12)}
+.btn-light{background:#E6E5DC;color:#122020}
+.btn-light:hover{background:#FFFFFF;color:#122020;transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.btn-ghost-light{border:1px solid rgba(230,229,220,.34);color:#E6E5DC}
+.btn-ghost-light:hover{border-color:#E6E5DC;color:#E6E5DC}
+.btn-sm{min-height:44px;padding:0 16px;font-size:15px}
+
+.nav{position:fixed;top:20px;left:0;right:0;z-index:20;padding:0 20px;pointer-events:none}
+.nav-pill{pointer-events:auto;max-width:1120px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 10px 0 22px;background:rgba(18,32,32,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(230,229,220,.08);border-radius:12px;color:#E6E5DC}
+.nav-pill a{color:#E6E5DC}
+.nav-pill a:hover{color:#B9CF9A}
+.nav-pill .btn-light,.nav-pill .btn-light:hover{color:#122020}
+.nav-links{display:none}
+.nav-links a{font-size:15px;font-weight:500;padding:12px 0;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.nav-links a:hover::after{transform:scaleX(1)}
+.show-md{display:none}
+
+.hero-sec{padding:10px 10px 0}
+.hero{position:relative;overflow:hidden;background:#1D3829;color:#E6E5DC;border-radius:12px 12px 0 0;display:flex;flex-direction:column}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-main{position:relative;flex:1;padding:120px 0 56px}
+.hero .lead{color:rgba(230,229,220,.80)}
+.panel{position:relative;background:#122020;border:1px solid rgba(230,229,220,.10);border-radius:12px;padding:18px;box-shadow:0 30px 60px rgba(0,0,0,.28)}
+.row{display:grid;grid-template-columns:70px repeat(6,minmax(0,1fr));gap:6px;align-items:center}
+.slot{height:32px;border-radius:6px}
+.slot.b{background:rgba(230,229,220,.86)}
+.slot.f{border:1px dashed rgba(230,229,220,.26)}
+.slot.n{background:#F03117;animation:pulse 2.8s ease-in-out infinite}
+.mow{animation:mow 8s linear infinite;will-change:transform}
+@keyframes mow{from{transform:translateX(0)}to{transform:translateX(-184.03px)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(240,49,23,0)}50%{box-shadow:0 0 0 5px rgba(240,49,23,.22)}}
+.legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.toast{position:relative;margin-top:14px;display:flex;align-items:center;gap:12px;background:#E6E5DC;color:#122020;border-radius:10px;padding:12px 16px 12px 12px;box-shadow:0 16px 36px rgba(0,0,0,.24);max-width:330px}
+.hero-strip{position:relative;list-style:none;margin:0;padding:0;border-top:1px solid rgba(230,229,220,.12);display:grid;grid-template-columns:minmax(0,1fr)}
+.hero-strip li{display:flex;align-items:center;gap:10px;padding:18px 20px;font-size:15px;color:rgba(230,229,220,.86)}
+.hero-strip li + li{border-top:1px solid rgba(230,229,220,.12)}
+
+.xp{position:relative}
+.xp-sticky{position:sticky;top:0}
+.xp-spacer{height:1100px}
+.xp-content{min-height:min(100vh,1200px);display:flex;align-items:center;padding:112px 0 80px;transform:scale(calc(.95 + .05 * var(--e,0)));transform-origin:50% 30%;opacity:calc(.3 + .7 * var(--e,0))}
+.xp-overlay{position:absolute;left:0;right:0;top:0;height:min(100vh,1200px);overflow:hidden;pointer-events:none;--m:max(80vw,115vh);--cw:min(clamp(64px,17vw,124px),14vh)}
+.xp-panel{position:absolute;inset:0 10px 10px}
+.tile{position:absolute;width:calc(25% + 1px);height:calc(33.34% + 1px);background:#1D3829;transform:translate(calc(var(--ux) * var(--m) * var(--e,0) * var(--s)),calc(var(--uy) * var(--m) * var(--e,0) * var(--s)));will-change:transform}
+.xp-lines{position:absolute;inset:0;border-radius:0 0 12px 12px;overflow:hidden;opacity:clamp(0,calc((.3 - var(--p,0)) * 6),1)}
+.xp-lines svg{position:absolute;inset:0;width:100%;height:100%}
+.xp-label{position:absolute;left:22px;bottom:20px;display:flex;flex-direction:column;gap:2px;color:#E6E5DC}
+.xp-hint{position:absolute;right:22px;bottom:22px;display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(230,229,220,.8)}
+.xp-hint svg{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.pc{position:absolute;width:var(--cw);height:calc(var(--cw) * 1.25);margin:calc(var(--cw) * -.625) 0 0 calc(var(--cw) * -.5);background:#E6E5DC;color:#122020;border-radius:10px;padding:calc(var(--cw) * .1);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 28px rgba(0,0,0,.22);transform:translate(calc(var(--ux) * var(--m) * var(--e,0) * var(--s)),calc(var(--uy) * var(--m) * var(--e,0) * var(--s))) rotate(calc(var(--r) * var(--e,0)));will-change:transform}
+.pc-top{display:flex;align-items:center;justify-content:space-between;gap:4px;font-size:max(9px,calc(var(--cw) * .1));font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#3E4B4B}
+.pc-time{font-size:calc(var(--cw) * .27);line-height:1}
+.pc-name{font-size:max(9px,calc(var(--cw) * .11));color:#3E4B4B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-new{flex:none;width:7px;height:7px;border-radius:50%;background:#F03117}
+@media (min-width:768px){.xp-panel{inset:0 14px 14px}.xp-label{left:32px;bottom:28px}.xp-hint{right:32px;bottom:30px}}
+@media (prefers-reduced-motion: reduce){.tile,.pc{transform:none}.xp-panel{opacity:calc(1 - var(--e,0))}.xp-hint svg{animation:none}}
+.turf{background-color:#1D3829;background-image:repeating-linear-gradient(102deg,#21402F 0 90px,#1D3829 90px 180px);background-attachment:fixed;animation:turf 8s linear infinite}
+@keyframes turf{from{background-position:0 0}to{background-position:-184.03px 0}}
+.problem{border-top:1px solid rgba(18,32,32,.16);padding-top:28px;display:flex;flex-direction:column;gap:14px}
+.card{background:#1F3B2D;color:#E6E5DC;border-radius:12px;padding:28px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;gap:40px;transition:transform .35s ease,box-shadow .35s ease,background-color .35s ease}
+.card:hover{transform:translateY(-4px);background:#1A3426;box-shadow:0 14px 30px rgba(18,32,32,.16)}
+.card .ic{width:48px;height:48px;border-radius:50%;border:1px solid rgba(230,229,220,.18);display:flex;align-items:center;justify-content:center;color:#B9CF9A;transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+.card:hover .ic{background:#B9CF9A;border-color:#B9CF9A;color:#122020}
+.card p{color:rgba(230,229,220,.76);margin:10px 0 0;line-height:1.55;font-size:16px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:20px;position:relative;padding-bottom:40px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:21px;top:48px;bottom:4px;width:1px;background:rgba(18,32,32,.18)}
+.tl li:last-child::before{display:none}
+.tl .dot{width:44px;height:44px;border-radius:50%;border:1px solid rgba(18,32,32,.2);background:#E6E5DC;display:flex;align-items:center;justify-content:center;color:#122020;transition:border-color .3s ease,color .3s ease,background-color .3s ease}
+.tl li:hover .dot{border-color:#2F5A3C;color:#2F5A3C}
+.tl .hl .dot,.tl li.hl:hover .dot{background:#1F3B2D;border-color:#1F3B2D;color:#B9CF9A}
+.faq{border-top:1px solid rgba(18,32,32,.16)}
+.faq details{border-bottom:1px solid rgba(18,32,32,.16)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;padding:24px 0;font-size:clamp(18px,1.6vw,21px);font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid rgba(18,32,32,.2);display:flex;align-items:center;justify-content:center;transition:transform .3s ease,background-color .3s ease,color .3s ease,border-color .3s ease}
+.faq summary:hover .chev{background:#1F3B2D;border-color:#1F3B2D;color:#E6E5DC}
+.faq details[open] .chev{transform:rotate(180deg)}
+.faq details p{margin:0;padding:0 56px 28px 0;line-height:1.6;color:#3E4B4B;font-size:17px}
+.band{position:relative;overflow:hidden;background:#1D3829;color:#E6E5DC;border-radius:12px;padding:56px 24px}
+.court-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.foot a{font-size:15px;color:#3E4B4B}
+.foot a:hover{color:#122020}
+.foot h3{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:0 0 16px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.fade{animation:fadeup .9s ease both}
+.fade-2{animation-delay:.12s}
+.fade-3{animation-delay:.24s}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+.reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.fade,.reveal,.slot.n,.mow,.turf{animation:none}.card,.btn{transition:none}}
+@media (min-width:768px){
+.wrap{padding:0 40px}
+.grid{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:56px}
+.section{padding:150px 0}
+.nav{top:24px;padding:0 32px}
+.nav-links{display:flex;gap:36px}
+.show-md{display:inline-flex}
+.hide-md{display:none}
+.hero-sec{padding:14px 14px 0}
+.hero{min-height:880px}
+.hero-main{display:flex;align-items:center;padding:150px 0 72px}
+.hero-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hero-strip li{justify-content:center;padding:22px 24px}
+.hero-strip li + li{border-top:0;border-left:1px solid rgba(230,229,220,.12)}
+.panel{padding:24px}
+.toast{position:absolute;left:-40px;bottom:-34px;margin:0}
+.c-1-6{grid-column:1/7}.c-7-12{grid-column:7/13}.c-1-5{grid-column:1/6}.c-7-12b{grid-column:7/13}
+.c-1-4{grid-column:1/5}.c-6-12{grid-column:6/13}.c-8-12{grid-column:8/13}
+.s4{grid-column:span 4}.s6{grid-column:span 6}
+.row{grid-template-columns:92px repeat(6,minmax(0,1fr));gap:8px}
+.slot{height:38px}
+.band{padding:96px 72px}
+.sticky{position:sticky;top:130px;align-self:start}
+}
+@media (min-width:1080px){.s3{grid-column:span 3}}
+@media (max-width:767px){.c-1-6,.c-7-12,.c-1-5,.c-7-12b,.c-1-4,.c-6-12,.c-8-12,.s3,.s4,.s6{grid-column:1/-1}}
+@media (min-width:768px) and (max-width:1079px){.s3{grid-column:span 6}}
+</style>
+</head>
+<body>
+<div style="min-height: 100vh; background: #E6E5DC; --fh: 'Young Serif', Georgia, serif; --fv: normal">
+
+<header class="nav">
+<div class="nav-pill">
+<a href="#top" class="serif" style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em" aria-label="Kickoff, torna all'inizio">Kickoff<span style="color: #F03117">.</span></a>
+<nav class="nav-links" aria-label="Principale">
+<a href="#come-funziona">Come funziona</a>
+<a href="#vantaggi">Vantaggi</a>
+<a href="#faq">FAQ</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 18px">
+<a href="#accedi" style="font-size: 15px; font-weight: 500; padding: 12px 0">Accedi</a>
+<a href="#registrati" class="btn btn-light btn-sm"><span class="show-md">Registra il tuo campo</span><span class="hide-md">Registrati</span></a>
+</div>
+</div>
+</header>
+
+<main id="top">
+
+<section class="hero-sec">
+<div class="hero turf">
+<svg class="hero-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<g transform="translate(1030 470) rotate(-12)" fill="none" stroke="rgba(230,229,220,0.34)" stroke-width="2">
+<rect x="-340" y="-520" width="680" height="1040" rx="4"></rect>
+<line x1="-340" y1="0" x2="340" y2="0"></line>
+<circle cx="0" cy="0" r="96"></circle>
+<circle cx="0" cy="0" r="4" fill="rgba(230,229,220,0.4)"></circle>
+<rect x="-170" y="-520" width="340" height="150"></rect>
+<rect x="-80" y="-520" width="160" height="60"></rect>
+<path d="M -70 -370 A 80 80 0 0 0 70 -370"></path>
+<rect x="-170" y="370" width="340" height="150"></rect>
+<rect x="-80" y="460" width="160" height="60"></rect>
+<path d="M -70 370 A 80 80 0 0 1 70 370"></path>
+</g>
+<g transform="translate(150 820) rotate(-12)" fill="none" stroke="rgba(230,229,220,0.18)" stroke-width="2">
+<rect x="-230" y="-120" width="460" height="240" fill="rgba(18,32,32,0.18)"></rect>
+<line x1="0" y1="-120" x2="0" y2="120"></line>
+<line x1="-230" y1="-90" x2="230" y2="-90"></line>
+<line x1="-230" y1="90" x2="230" y2="90"></line>
+<line x1="-120" y1="-90" x2="-120" y2="90"></line>
+<line x1="120" y1="-90" x2="120" y2="90"></line>
+<line x1="-120" y1="0" x2="120" y2="0"></line>
+</g>
+<g>
+<circle cx="770" cy="150" r="7" fill="#E6E5DC" opacity="0.75"></circle>
+<circle cx="1330" cy="190" r="7" fill="#E6E5DC" opacity="0.75"></circle>
+<circle cx="700" cy="610" r="7" fill="#B9CF9A" opacity="0.85"></circle>
+<circle cx="1360" cy="700" r="7" fill="#B9CF9A" opacity="0.85"></circle>
+<circle cx="1120" cy="815" r="7" fill="#E6E5DC" opacity="0.75"></circle>
+<circle cx="1210" cy="790" r="4" fill="#FFFFFF"></circle>
+</g>
+</svg>
+
+<div class="hero-main">
+<div class="wrap" style="width: 100%">
+<div class="grid" style="align-items: center">
+<div class="c-1-6">
+<h1 class="h1 serif fade">Meno telefonate.<br>Più partite.</h1>
+<p class="lead fade fade-2" style="margin-top: 28px; max-width: 470px">Kickoff raccoglie le prenotazioni del tuo campo in un unico calendario online. I giocatori prenotano da soli, tu pensi al resto.</p>
+<div class="fade fade-3" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px">
+<a href="#registrati" class="btn btn-light">Registra il tuo campo <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a href="#come-funziona" class="btn btn-ghost-light"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg> Guarda come funziona</a>
+</div>
+</div>
+
+<div class="c-8-12 fade fade-2">
+<div style="position: relative">
+<div class="panel">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px">
+<span class="serif" style="font-size: 26px; font-weight: 500">Oggi</span>
+<span style="font-size: 14px; color: rgba(230,229,220,0.72)">Martedì 21 · 3 campi</span>
+</div>
+<div class="row" style="margin-bottom: 10px; font-size: 12px; color: rgba(230,229,220,0.62)">
+<span></span><span style="text-align: center">17</span><span style="text-align: center">18</span><span style="text-align: center">19</span><span style="text-align: center">20</span><span style="text-align: center">21</span><span style="text-align: center">22</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="row"><span style="font-size: 14px; font-weight: 500">Calcetto</span><span class="slot b"></span><span class="slot b"></span><span class="slot f"></span><span class="slot b"></span><span class="slot n"></span><span class="slot f"></span></div>
+<div class="row"><span style="font-size: 14px; font-weight: 500">Tennis</span><span class="slot f"></span><span class="slot b"></span><span class="slot b"></span><span class="slot b"></span><span class="slot f"></span><span class="slot f"></span></div>
+<div class="row"><span style="font-size: 14px; font-weight: 500">Basket</span><span class="slot b"></span><span class="slot f"></span><span class="slot f"></span><span class="slot b"></span><span class="slot b"></span><span class="slot f"></span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 20px; margin-top: 20px; font-size: 13px; color: rgba(230,229,220,0.72)">
+<span style="display: inline-flex; align-items: center; gap: 8px"><span class="legend-dot" style="border: 1px dashed rgba(230,229,220,0.45)"></span>Libero</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><span class="legend-dot" style="background: rgba(230,229,220,0.86)"></span>Prenotato</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><span class="legend-dot" style="background: #F03117"></span>Appena prenotato</span>
+</div>
+</div>
+<div class="toast">
+<span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #1F3B2D; color: #E6E5DC; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 14px; font-weight: 600">Nuova prenotazione</span>
+<span style="font-size: 13px; color: #3E4B4B">Calcetto · 21:00 · Luca R.</span>
+</span>
+<span style="font-size: 12px; color: #3E4B4B; margin-left: 8px">ora</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<ul class="hero-strip">
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B9CF9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Pronto in pochi minuti</li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B9CF9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Nessuna app da installare</li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B9CF9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Prenotazioni aperte giorno e notte</li>
+</ul>
+</div>
+</section>
+
+<section class="xp">
+<div class="xp-sticky">
+<div class="xp-content">
+<div class="wrap" style="width: 100%">
+<div class="grid">
+<div class="c-1-6">
+<span class="eyebrow">Il problema</span>
+<h2 class="h2 serif">Gestire gli orari non dovrebbe essere un secondo lavoro.</h2>
+</div>
+<div class="full">
+<div class="grid">
+<div class="s4 problem">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="serif muted" style="font-size: 20px">01</span>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F3B2D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.790 19.790 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+<h3 class="serif" style="margin: 12px 0 0; font-size: 26px; font-weight: 500">Il telefono non smette mai</h3>
+<p class="muted" style="margin: 0; line-height: 1.6; font-size: 17px">Chiamate e messaggi a ogni ora solo per sapere se il campo è libero.</p>
+</div>
+<div class="s4 problem">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="serif muted" style="font-size: 20px">02</span>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F3B2D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="m14 14-4 4"></path><path d="m10 14 4 4"></path></svg>
+</div>
+<h3 class="serif" style="margin: 12px 0 0; font-size: 26px; font-weight: 500">Le doppie prenotazioni</h3>
+<p class="muted" style="margin: 0; line-height: 1.6; font-size: 17px">Agenda, fogli Excel, chat: basta una svista e due squadre arrivano alla stessa ora.</p>
+</div>
+<div class="s4 problem">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span class="serif muted" style="font-size: 20px">03</span>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F3B2D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+</div>
+<h3 class="serif" style="margin: 12px 0 0; font-size: 26px; font-weight: 500">I buchi dell'ultimo minuto</h3>
+<p class="muted" style="margin: 0; line-height: 1.6; font-size: 17px">Chi disdice tardi lascia un orario vuoto che nessuno riesce più a riempire.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="xp-overlay" aria-hidden="true">
+<div class="xp-panel">
+<div class="tile" style="left: 0%; top: 0%; --ux: -0.75; --uy: -0.66; --s: 1"></div>
+<div class="tile" style="left: 25%; top: 0%; --ux: -0.35; --uy: -0.94; --s: 1.15"></div>
+<div class="tile" style="left: 50%; top: 0%; --ux: 0.35; --uy: -0.94; --s: 1.1"></div>
+<div class="tile" style="left: 75%; top: 0%; --ux: 0.75; --uy: -0.66; --s: 1.05"></div>
+<div class="tile" style="left: 0%; top: 33.333%; --ux: -1; --uy: 0; --s: 1.1"></div>
+<div class="tile" style="left: 25%; top: 33.333%; --ux: -0.97; --uy: -0.25; --s: 1.3"></div>
+<div class="tile" style="left: 50%; top: 33.333%; --ux: 0.97; --uy: 0.25; --s: 1.25"></div>
+<div class="tile" style="left: 75%; top: 33.333%; --ux: 1; --uy: 0; --s: 1.05"></div>
+<div class="tile" style="left: 0%; top: 66.666%; border-bottom-left-radius: 12px; --ux: -0.75; --uy: 0.66; --s: 1.15"></div>
+<div class="tile" style="left: 25%; top: 66.666%; --ux: -0.35; --uy: 0.94; --s: 1.05"></div>
+<div class="tile" style="left: 50%; top: 66.666%; --ux: 0.35; --uy: 0.94; --s: 1.2"></div>
+<div class="tile" style="left: 75%; top: 66.666%; border-bottom-right-radius: 12px; --ux: 0.75; --uy: 0.66; --s: 1"></div>
+
+<div class="xp-lines turf">
+<svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice">
+<g fill="none" stroke="rgba(230,229,220,0.32)" stroke-width="2" vector-effect="non-scaling-stroke">
+<rect x="40" y="40" width="920" height="620" rx="3" vector-effect="non-scaling-stroke"></rect>
+<path d="M390 40 A110 110 0 0 0 610 40" vector-effect="non-scaling-stroke"></path>
+<rect x="227.5" y="465" width="545" height="195" vector-effect="non-scaling-stroke"></rect>
+<rect x="376" y="595" width="248" height="65" vector-effect="non-scaling-stroke"></rect>
+<path d="M413.75 465 A108 108 0 0 1 586.25 465" vector-effect="non-scaling-stroke"></path>
+</g>
+<circle cx="500" cy="40" r="4" fill="rgba(230,229,220,0.4)"></circle>
+<circle cx="500" cy="530" r="4" fill="rgba(230,229,220,0.4)"></circle>
+</svg>
+<div class="xp-label">
+<span class="serif" style="font-size: 22px; line-height: 1.2">La squadra di oggi</span>
+<span style="font-size: 14px; color: rgba(230,229,220,0.78)">11 prenotazioni, 4 campi</span>
+</div>
+<div class="xp-hint">Scorri <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></div>
+</div>
+
+<div class="pc" style="left: 26%; top: 18%; --ux: -0.6; --uy: -0.8; --r: -18deg; --s: 1.1"><span class="pc-top">Tennis</span><span class="pc-time serif">18:00</span><span class="pc-name">Giulia M.</span></div>
+<div class="pc" style="left: 50%; top: 15%; --ux: 0; --uy: -1; --r: 6deg; --s: 1.25"><span class="pc-top">Calcetto <span class="pc-new"></span></span><span class="pc-time serif">21:00</span><span class="pc-name">Luca R.</span></div>
+<div class="pc" style="left: 74%; top: 18%; --ux: 0.6; --uy: -0.8; --r: 20deg; --s: 1.05"><span class="pc-top">Padel</span><span class="pc-time serif">19:30</span><span class="pc-name">Andrea B.</span></div>
+<div class="pc" style="left: 30%; top: 41%; --ux: -0.91; --uy: -0.41; --r: -24deg; --s: 1.2"><span class="pc-top">Basket</span><span class="pc-time serif">20:00</span><span class="pc-name">Sara T.</span></div>
+<div class="pc" style="left: 50%; top: 38%; --ux: 0.25; --uy: -0.97; --r: 12deg; --s: 1.35"><span class="pc-top">Calcetto</span><span class="pc-time serif">17:00</span><span class="pc-name">Marco D.</span></div>
+<div class="pc" style="left: 70%; top: 41%; --ux: 0.91; --uy: -0.41; --r: 16deg; --s: 1.15"><span class="pc-top">Tennis</span><span class="pc-time serif">09:00</span><span class="pc-name">Elena P.</span></div>
+<div class="pc" style="left: 14%; top: 62%; --ux: -0.95; --uy: 0.32; --r: -30deg; --s: 1"><span class="pc-top">Padel</span><span class="pc-time serif">12:30</span><span class="pc-name">Paolo F.</span></div>
+<div class="pc" style="left: 38%; top: 67%; --ux: -0.58; --uy: 0.82; --r: -10deg; --s: 1.3"><span class="pc-top">Calcetto</span><span class="pc-time serif">22:00</span><span class="pc-name">Davide C.</span></div>
+<div class="pc" style="left: 62%; top: 67%; --ux: 0.58; --uy: 0.82; --r: 14deg; --s: 1.1"><span class="pc-top">Basket</span><span class="pc-time serif">16:00</span><span class="pc-name">Chiara L.</span></div>
+<div class="pc" style="left: 86%; top: 62%; --ux: 0.95; --uy: 0.32; --r: 28deg; --s: 1.05"><span class="pc-top">Tennis</span><span class="pc-time serif">11:00</span><span class="pc-name">Fabio N.</span></div>
+<div class="pc" style="left: 50%; top: 85%; --ux: -0.2; --uy: 0.98; --r: -8deg; --s: 1.2"><span class="pc-top">Calcetto</span><span class="pc-time serif">20:00</span><span class="pc-name">Simone G.</span></div>
+</div>
+</div>
+</div>
+<div class="xp-spacer"></div>
+</section>
+
+<section id="vantaggi" class="section" style="padding-top: 0">
+<div class="wrap">
+<div class="grid">
+<div class="c-1-6 reveal">
+<span class="eyebrow">La soluzione</span>
+<h2 class="h2 serif">Un calendario che lavora al posto tuo.</h2>
+</div>
+<div class="c-8-12 reveal" style="align-self: end">
+<p class="lead">Tutti i tuoi campi, tutti gli orari, in un'unica pagina che i tuoi clienti possono consultare quando vogliono.</p>
+</div>
+<div class="full">
+<div class="grid" style="row-gap: 24px">
+<article class="s3 card reveal">
+<span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="m9 16 2 2 4-4"></path></svg></span>
+<div><h3 class="serif" style="margin: 0; font-size: 26px; font-weight: 500">Prenotazioni sempre aperte</h3><p>I giocatori vedono gli orari liberi e prenotano in autonomia, anche di notte.</p></div>
+</article>
+<article class="s3 card reveal">
+<span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span>
+<div><h3 class="serif" style="margin: 0; font-size: 26px; font-weight: 500">Promemoria automatici</h3><p>Un messaggio prima della partita riduce chi si dimentica di presentarsi.</p></div>
+</article>
+<article class="s3 card reveal">
+<span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg></span>
+<div><h3 class="serif" style="margin: 0; font-size: 26px; font-weight: 500">Orari liberati subito</h3><p>Se qualcuno disdice, lo slot torna disponibile per tutti in un attimo.</p></div>
+</article>
+<article class="s3 card reveal">
+<span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg></span>
+<div><h3 class="serif" style="margin: 0; font-size: 26px; font-weight: 500">Ogni sport, un solo posto</h3><p>Calcetto, tennis, padel, basket: ogni campo con le sue regole e i suoi orari.</p></div>
+</article>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="come-funziona" class="section" style="border-top: 1px solid rgba(18,32,32,0.10)">
+<div class="wrap">
+<div class="grid">
+<div class="c-1-5 sticky reveal">
+<span class="eyebrow">Come funziona</span>
+<h2 class="h2 serif">Un martedì qualsiasi, con Kickoff.</h2>
+</div>
+<div class="c-7-12b">
+<ol class="tl">
+<li class="reveal">
+<span class="dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="M12 18h.01"></path></svg></span>
+<div style="padding-top: 4px"><span class="serif" style="font-size: 30px; font-weight: 500; line-height: 1">08:12</span><p class="muted" style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Luca prenota il calcetto delle 21:00 dal telefono, mentre fa colazione.</p></div>
+</li>
+<li class="reveal">
+<span class="dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+<div style="padding-top: 4px"><span class="serif" style="font-size: 30px; font-weight: 500; line-height: 1">08:12</span><p class="muted" style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Ti arriva la notifica. Nessuna chiamata da richiamare.</p></div>
+</li>
+<li class="reveal">
+<span class="dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span>
+<div style="padding-top: 4px"><span class="serif" style="font-size: 30px; font-weight: 500; line-height: 1">18:00</span><p class="muted" style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Kickoff ricorda a Luca e alla sua squadra la partita di stasera.</p></div>
+</li>
+<li class="reveal hl">
+<span class="dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg></span>
+<div style="padding-top: 4px"><span class="serif" style="font-size: 30px; font-weight: 500; line-height: 1">19:30</span><p class="muted" style="margin: 10px 0 0; font-size: 18px; line-height: 1.55">Il tennis delle 20:00 viene disdetto. Lo slot si libera e dopo 12 minuti è di nuovo prenotato.</p></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<section id="faq" class="section" style="border-top: 1px solid rgba(18,32,32,0.10)">
+<div class="wrap">
+<div class="grid">
+<div class="c-1-4 reveal">
+<h2 class="h2 serif" style="margin-top: 0">Domande frequenti</h2>
+<p class="muted" style="margin: 20px 0 0; font-size: 17px; line-height: 1.6">Non trovi la risposta? <a href="#contatti" style="text-decoration: underline; text-underline-offset: 3px">Scrivici</a>.</p>
+</div>
+<div class="c-6-12 faq reveal">
+<details open="">
+<summary>Devo installare qualcosa? <span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span></summary>
+<p>No. Kickoff funziona dal browser, su computer e telefono. Anche i tuoi clienti prenotano senza scaricare app.</p>
+</details>
+<details>
+<summary>I miei clienti devono registrarsi? <span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span></summary>
+<p>Basta nome e numero di telefono alla prima prenotazione. Dalla seconda, due tocchi.</p>
+</details>
+<details>
+<summary>Posso gestire più campi e sport diversi? <span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span></summary>
+<p>Sì. Ogni campo ha i suoi orari, durate e prezzi.</p>
+</details>
+<details>
+<summary>Posso bloccare orari per corsi o tornei? <span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span></summary>
+<p>Sì, puoi riservare fasce ricorrenti che non compaiono come disponibili.</p>
+</details>
+<details>
+<summary>Quanto costa? <span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span></summary>
+<p>[IL TUO PREZZO]. Puoi provarlo gratis prima di decidere.</p>
+</details>
+</div>
+</div>
+</div>
+</section>
+
+<section id="registrati" style="padding: 0 0 96px">
+<div class="wrap">
+<div class="band reveal">
+<svg class="court-lines" viewBox="0 0 1200 500" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+<defs>
+<pattern id="mowB" width="160" height="160" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)"><rect width="80" height="160" fill="#21402F"></rect></pattern>
+</defs>
+<rect width="1200" height="500" fill="url(#mowB)"></rect>
+<g transform="translate(900 250) rotate(-12)" fill="none" stroke="rgba(230,229,220,0.22)" stroke-width="1.5">
+<rect x="-280" y="-220" width="560" height="440" rx="4"></rect>
+<line x1="0" y1="-220" x2="0" y2="220"></line>
+<circle cx="0" cy="0" r="72"></circle>
+<rect x="-280" y="-95" width="90" height="190"></rect>
+<rect x="190" y="-95" width="90" height="190"></rect>
+</g>
+</svg>
+<div style="position: relative; max-width: 640px">
+<h2 class="h2 serif" style="margin-top: 0; color: #E6E5DC">Il prossimo weekend, lascia che prenotino da soli.</h2>
+<p style="margin: 24px 0 0; font-size: clamp(17px,1.5vw,20px); line-height: 1.55; color: rgba(230,229,220,0.80); max-width: 480px">Registra il tuo campo oggi e condividi il link con i tuoi clienti.</p>
+<div style="margin-top: 40px">
+<a href="#registrati" class="btn btn-light">Registra il tuo campo <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="foot" style="border-top: 1px solid rgba(18,32,32,0.12); padding: 72px 0 40px">
+<div class="wrap">
+<div class="grid">
+<div class="c-1-4">
+<a href="#top" class="serif" style="font-size: 30px; font-weight: 600; letter-spacing: -0.02em; color: #122020">Kickoff<span style="color: #F03117">.</span></a>
+<p class="muted" style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; max-width: 260px">Il calendario per chi gestisce campi sportivi.</p>
+</div>
+<div class="c-6-12">
+<div class="grid" style="grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 32px">
+<div><h3>Prodotto</h3><ul><li><a href="#come-funziona">Come funziona</a></li><li><a href="#vantaggi">Vantaggi</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div><h3>Azienda</h3><ul><li><a href="#chi-siamo">Chi siamo</a></li><li><a href="#contatti">Contatti</a></li></ul></div>
+<div><h3>Legale</h3><ul><li><a href="#privacy">Privacy</a></li><li><a href="#termini">Termini</a></li></ul></div>
+</div>
+</div>
+<div class="full" style="border-top: 1px solid rgba(18,32,32,0.12); padding-top: 24px; font-size: 14px; color: #3E4B4B">© 2026 Kickoff</div>
+</div>
+</div>
+</footer>
+
+</div>
+<script>
+(function () {
+  var el = document.querySelector('.xp');
+  if (!el) return;
+  var spacer = el.querySelector('.xp-spacer');
+  var raf = 0;
+  function update() {
+    raf = 0;
+    var len = spacer ? spacer.offsetHeight : 1;
+    var p = Math.min(1, Math.max(0, -el.getBoundingClientRect().top / len));
+    var t = Math.min(1, Math.max(0, (p - 0.1) / 0.9));
+    var e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    el.style.setProperty('--p', p.toFixed(4));
+    el.style.setProperty('--e', e.toFixed(4));
+  }
+  function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
