@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const Register = () => {
   const [name, setName] = useState("");
@@ -30,9 +32,9 @@ export const Register = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 min-w-64">
           <h1 className="text-center">Registrazione</h1>
 
-          <div className="flex flex-col gap-1">
-            <label>Nome</label>
-            <input
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-ink">Nome</label>
+            <Input
               type="text"
               placeholder="Inserisci nome..."
               value={name}
@@ -41,9 +43,9 @@ export const Register = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label>Email</label>
-            <input
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-ink">Email</label>
+            <Input
               type="email"
               placeholder="Inserisci email..."
               value={email}
@@ -52,9 +54,9 @@ export const Register = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label>Password</label>
-            <input
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-ink">Password</label>
+            <Input
               type="password"
               placeholder="Inserisci password..."
               value={password}
@@ -67,9 +69,9 @@ export const Register = () => {
             <p>Login</p>
           </Link>
 
-          {error && <p className="text-red-500 text-center">{error}</p> }
+          {error && <p className="text-danger text-center">{error}</p> }
 
-          <button className="primary-button">Registrati</button>
+          <Button>Registrati</Button>
         </form>
       </div>
     </section>

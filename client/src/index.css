@@ -122,12 +122,6 @@
     line-height: 1.2;
   }
 
-  input:not([type="checkbox"]):not([type="radio"]) {
-    @apply h-11 rounded-[10px] border border-input bg-white px-3 text-foreground outline-none
-           transition-shadow duration-200
-           focus-visible:ring-2 focus-visible:ring-ring/40;
-  }
-
   input[type="checkbox"],
   input[type="radio"] {
     accent-color: var(--color-forest);
@@ -136,73 +130,4 @@
   button {
     cursor: pointer;
   }
-}
-
-/* Classi temporanee usate dalle pagine: da sostituire nella fase 2 */
-@layer utilities {
-  .primary-button {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-[10px] px-5
-           bg-primary text-sm font-semibold text-primary-foreground
-           transition-all duration-200
-           hover:-translate-y-px hover:bg-ink hover:shadow-[0_8px_20px_rgba(18,32,32,.10)]
-           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40
-           disabled:pointer-events-none disabled:opacity-50;
-  }
-
-  .box {
-    @apply rounded-lg border bg-card p-5 text-card-foreground;
-  }
-
-  /* Modal */
-  .modal-backdrop {
-    @apply fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-5;
-    backdrop-filter: blur(3px);
-    animation: fadeIn 0.2s ease;
-  }
-
-  .modal-box {
-    @apply w-full max-w-md rounded-lg border bg-card p-6 text-card-foreground
-           shadow-[0_8px_20px_rgba(18,32,32,.10)];
-    animation: slideUp 0.25s ease;
-  }
-
-  /* Il titolo del Modal usa text-accent e le label text-muted: su paper resterebbero illeggibili */
-  .modal-box .text-accent {
-    color: var(--color-ink);
-  }
-
-  .modal-box .text-muted {
-    color: var(--color-stone);
-  }
-
-  .modal-input {
-    @apply min-h-11 w-full rounded-[10px] border border-input bg-white px-3 py-2 text-sm text-foreground outline-none
-           transition-shadow duration-200
-           focus-visible:ring-2 focus-visible:ring-ring/40;
-  }
-
-  .modal-input:disabled {
-    @apply cursor-not-allowed opacity-50;
-  }
-
-  .modal-close-btn {
-    @apply flex size-9 items-center justify-center rounded-full p-0 text-lg leading-none text-stone
-           transition-colors duration-200 hover:bg-ink/5;
-  }
-
-  .modal-cancel-btn {
-    @apply inline-flex h-11 items-center justify-center rounded-[10px] border border-ink/24 px-5
-           text-sm font-semibold text-ink
-           transition-colors duration-200 hover:border-ink;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(16px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
 }

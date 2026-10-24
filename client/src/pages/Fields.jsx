@@ -10,7 +10,9 @@ import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import { queryClient } from "../main";
 import { showSuccess } from "../utils/toast";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const Fields = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -77,22 +79,26 @@ export const Fields = () => {
     <div className="mx-10 mt-5">
       <div className="flex items-center justify-between mb-5">
         <h1>Campi</h1>
-        <button className="primary-button" onClick={openAddModal}>
-          + Aggiungi campo
-        </button>
+        <Button onClick={openAddModal}>
+          <Plus data-icon="inline-start" />
+          Aggiungi campo
+        </Button>
       </div>
 
       {isLoading ?
         <Loader />
       : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((field) => (
-            <div key={field.id} className="box flex flex-col gap-1">
+            <div key={field.id} className="flex flex-col gap-1 rounded-lg border bg-card p-5">
               <div className="flex items-center justify-between">
                 <h2>
                   {field.name}
                 </h2>
-                <button
-                  className="mt-3 self-start text-xs"
+                <Button
+                  variant="quiet"
+                  size="icon"
+                  aria-label="Elimina campo"
+                  className="-mr-2"
                   onClick={() => {
                     if (window.confirm("Sei sicuro di voler eliminare questo campo?")) {
                         deleteField(field.id);
@@ -100,18 +106,20 @@ export const Fields = () => {
                   }}
                 >
                   <Trash2 />
-                </button>
+                </Button>
               </div>
               <p>{field.type}</p>
               <p>{field.isCover ? "Copertura" : "Non copertura"}</p>
               <p>{field.hourPrice} €/h</p>
               <p>{field.isActive ? "Attivo" : "Non attivo"}</p>
-              <button
-                className="primary-button mt-3 self-start text-xs"
+              <Button
+                variant="ghost"
+                size="sm"
+                className="mt-3 self-start"
                 onClick={() => openEditModal(field)}
               >
                 Modifica
-              </button>
+              </Button>
             </div>
           ))}
         </div>
@@ -126,12 +134,12 @@ export const Fields = () => {
         isLoading={isAdding || isEditing}
         renderFields={({ formData, handleChange }) => (
           <>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="name" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="name" className="text-sm font-medium text-ink">
                 Nome
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
-              <input
+              <Input
                 id="name"
                 name="name"
                 type="text"
@@ -140,16 +148,15 @@ export const Fields = () => {
                 placeholder="Campo 1"
                 required
                 disabled={isAdding || isEditing}
-                className="modal-input"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="type" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="type" className="text-sm font-medium text-ink">
                 Tipo
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
-              <input
+              <Input
                 id="type"
                 name="type"
                 type="text"
@@ -158,7 +165,6 @@ export const Fields = () => {
                 placeholder="Es. campo, piscina, tennis..."
                 required
                 disabled={isAdding || isEditing}
-                className="modal-input"
               />
             </div>
 
@@ -170,19 +176,19 @@ export const Fields = () => {
                 checked={!!formData.isCover}
                 onChange={handleChange}
                 disabled={isAdding || isEditing}
-                className="modal-checkbox"
+                className="size-5"
               />
-              <label htmlFor="isCover" className="text-sm text-muted">
+              <label htmlFor="isCover" className="text-sm font-medium text-ink">
                 Copertura
               </label>
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="hourPrice" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="hourPrice" className="text-sm font-medium text-ink">
                 Prezzo orario
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
-              <input
+              <Input
                 id="hourPrice"
                 name="hourPrice"
                 type="number"
@@ -191,7 +197,6 @@ export const Fields = () => {
                 placeholder="10"
                 required
                 disabled={isAdding || isEditing}
-                className="modal-input"
               />
             </div>
 
@@ -203,9 +208,9 @@ export const Fields = () => {
                 checked={!!formData.isActive}
                 onChange={handleChange}
                 disabled={isAdding || isEditing}
-                className="modal-checkbox"
+                className="size-5"
               />
-              <label htmlFor="isActive" className="text-sm text-muted">
+              <label htmlFor="isActive" className="text-sm font-medium text-ink">
                 Attivo
               </label>
             </div>

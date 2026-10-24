@@ -1,3 +1,4 @@
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { addNewReservation, getAllReservations } from "../services/reservationsServices";
@@ -81,19 +82,21 @@ export const Reservations = () => {
     <div className="mx-10 mt-5">
       <div className="flex items-center justify-between mb-5">
         <h1>Prenotazioni</h1>
-        <Button variant="secondary" onClick={openAddModal}>
-          + Aggiungi prenotazione
+        <Button onClick={openAddModal}>
+          <Plus data-icon="inline-start" />
+          Aggiungi prenotazione
         </Button>
       </div>
       {isLoading ?
         <Loader />
       : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((reservation) => (
-            <div key={reservation.id} className="box flex flex-col gap-1">
+            <div key={reservation.id} className="flex flex-col gap-1 rounded-lg border bg-card p-5">
               <div className="flex items-center justify-between">
                 <h2>{reservation.name}</h2>
                 <Button
-                  variant="secondary"
+                  variant="ghost"
+                  size="sm"
                   onClick={() => openEditModal(reservation)}
                 >
                   Modifica
@@ -115,8 +118,8 @@ export const Reservations = () => {
         isLoading={isLoading}
         renderFields={({ formData, handleChange, setFormData }) => (
           <>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="date" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="date" className="text-sm font-medium text-ink">
                 Data
               </label>
               <Input
@@ -128,10 +131,10 @@ export const Reservations = () => {
                 disabled={isLoading}
               />
             </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="start_hour" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="start_hour" className="text-sm font-medium text-ink">
                 Ora inizio
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
               <Input
                 id="start_hour"
@@ -144,10 +147,10 @@ export const Reservations = () => {
                 disabled={isLoading}
               />
             </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="end_hour" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="end_hour" className="text-sm font-medium text-ink">
                 Ora fine
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
               <Input
                 id="end_hour"
@@ -160,8 +163,8 @@ export const Reservations = () => {
                 disabled={isLoading}
               />
             </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="status" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="status" className="text-sm font-medium text-ink">
                 Stato
               </label>
               <Select

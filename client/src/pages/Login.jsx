@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { showSuccess } from "../utils/toast";
 import Loader from "../components/Loader";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -48,9 +50,9 @@ export const Login = () => {
           >
             <h1 className="text-center">Login</h1>
 
-            <div className="flex flex-col gap-1">
-              <label>Email</label>
-              <input
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-medium text-ink">Email</label>
+              <Input
                 type="email"
                 placeholder="Insersci email..."
                 value={email}
@@ -59,9 +61,9 @@ export const Login = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label>Password</label>
-              <input
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-medium text-ink">Password</label>
+              <Input
                 type="password"
                 placeholder="Inserisci password..."
                 value={password}
@@ -74,12 +76,12 @@ export const Login = () => {
               <p>Registrati</p>
             </Link>
 
-            {error && <p className="text-red-500 text-center">{error}</p>}
+            {error && <p className="text-danger text-center">{error}</p>}
 
-            <button className="primary-button">Login</button>
+            <Button>Login</Button>
 
             <div className="flex justify-center">
-              <button className="primary-button">Verifica prenotazione</button>
+              <Button variant="ghost">Verifica prenotazione</Button>
             </div>
           </form>
         </div>

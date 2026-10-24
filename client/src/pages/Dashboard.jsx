@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 export const Dashboard = () => {
   const { user, loading, logout } = useAuth();
@@ -13,7 +14,7 @@ export const Dashboard = () => {
           <h1>Dashboard</h1>
           <p>Benvenuto {user.name}</p>
         </div>
-        <button onClick={() => logout()}>Logout</button>
+        <Button variant="ghost" size="sm" onClick={() => logout()}>Logout</Button>
       </div>
 
       <div className="flex gap-10 mt-5">

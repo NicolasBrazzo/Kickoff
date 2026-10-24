@@ -10,7 +10,7 @@ import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import { queryClient } from "../main";
 import { showSuccess } from "../utils/toast";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -80,8 +80,9 @@ export const Clients = () => {
       <div className="flex items-center justify-between mb-5">
         <h1>Clienti</h1>
 
-        <Button variant="secondary" onClick={openAddModal}>
-          + Aggiungi cliente
+        <Button onClick={openAddModal}>
+          <Plus data-icon="inline-start" />
+          Aggiungi cliente
         </Button>
 
       </div>
@@ -90,13 +91,16 @@ export const Clients = () => {
         <Loader />
       : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((client) => (
-            <div key={client.id} className="box flex flex-col gap-1">
+            <div key={client.id} className="flex flex-col gap-1 rounded-lg border bg-card p-5">
               <div className="flex items-center justify-between">
                 <h2>
                   {client.name} {client.surname}
                 </h2>
-                <button
-                  className="mt-3 self-start text-xs"
+                <Button
+                  variant="quiet"
+                  size="icon"
+                  aria-label="Elimina cliente"
+                  className="-mr-2"
                   onClick={() => {
                     if (window.confirm("Sei sicuro di voler eliminare questo cliente?")) {
                       deleteClient(client.id);
@@ -104,15 +108,17 @@ export const Clients = () => {
                   }}
                 >
                   <Trash2 />
-                </button>
+                </Button>
               </div>
               <p>{client.phone}</p>
               <p>{client.email}</p>
-              <p className="text-sm opacity-60">
+              <p className="text-sm text-stone">
                 {client.note || "Nessuna nota"}
               </p>
-              <Button variant="secondary"
-                className="mt-3"
+              <Button
+                variant="ghost"
+                size="sm"
+                className="mt-3 self-start"
                 onClick={() => openEditModal(client)}
               >
                 Modifica
@@ -131,10 +137,10 @@ export const Clients = () => {
         isLoading={isAdding || isEditing}
         renderFields={({ formData, handleChange }) => (
           <>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="name" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="name" className="text-sm font-medium text-ink">
                 Nome
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
               <Input
                 id="name"
@@ -145,14 +151,13 @@ export const Clients = () => {
                 placeholder="Mario"
                 required
                 disabled={isAdding || isEditing}
-                // className="modal-input"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="surname" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="surname" className="text-sm font-medium text-ink">
                 Cognome
-                <span className="text-red-400 ml-1">*</span>
+                <span className="text-danger ml-1">*</span>
               </label>
               <Input
                 id="surname"
@@ -163,12 +168,11 @@ export const Clients = () => {
                 placeholder="Rossi"
                 required
                 disabled={isAdding || isEditing}
-                // className="modal-input"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="phone" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="phone" className="text-sm font-medium text-ink">
                 Telefono
               </label>
               <Input
@@ -179,12 +183,11 @@ export const Clients = () => {
                 onChange={handleChange}
                 placeholder="333 1234567"
                 disabled={isAdding || isEditing}
-                // className="modal-input"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="email" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="email" className="text-sm font-medium text-ink">
                 Email
               </label>
               <Input
@@ -195,12 +198,11 @@ export const Clients = () => {
                 onChange={handleChange}
                 placeholder="mario@example.com"
                 disabled={isAdding || isEditing}
-                // className="modal-input"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="note" className="text-sm text-muted">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="note" className="text-sm font-medium text-ink">
                 Note
               </label>
               <Textarea
@@ -211,7 +213,6 @@ export const Clients = () => {
                 placeholder="Note aggiuntive..."
                 disabled={isAdding || isEditing}
                 rows={3}
-                // className="modal-input resize-none"
               />
             </div>
           </>
