@@ -1,7 +1,11 @@
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { addNewReservation, getAllReservations } from "../services/reservationsServices";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+  addNewReservation,
+  getAllReservations,
+  updateReservation,
+} from "../services/reservationsServices";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import Modal from "@/components/Modal";
@@ -17,6 +21,8 @@ import {
 } from "@/components/ui/select";
 import { getClients } from "../services/clientsServices";
 import { getFields } from "../services/fieldsServices";
+import { queryClient } from "../main";
+import { showSuccess } from "../utils/toast";
 
 export const Reservations = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -42,12 +48,10 @@ export const Reservations = () => {
       field_id: formData.field_id ? Number(formData.field_id) : undefined,
     };
 
-    console.log(payload);
-
     if (selectedReservation) {
-      updateReservation({ id: selectedReservation.id, data: payload });
+      editReservation({ id: selectedReservation.id, data: payload });
     } else {
-      addNewReservation(payload);
+      addReservation(payload);
     }
   };
   // get all reservations
@@ -55,6 +59,28 @@ export const Reservations = () => {
     queryKey: ["reservations"],
     queryFn: getAllReservations,
   });
+
+  // Aggiungi prenotazione
+  const { mutate: addReservation, isPending: isAdding } = useMutation({
+    mutationFn: addNewReservation,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      showSuccess("Prenotazione aggiunta con successo");
+      setModalOpen(false);
+    },
+  });
+
+  // Modifica prenotazione
+  const { mutate: editReservation, isPending: isEditing } = useMutation({
+    mutationFn: ({ id, data }) => updateReservation(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservations"] });
+      showSuccess("Prenotazione modificata con successo");
+      setModalOpen(false);
+    },
+  });
+
+  const isSaving = isAdding || isEditing;
 
   // get All clients
   const { data: clients, isPending: isPendingClients } = useQuery({
@@ -69,7 +95,9 @@ export const Reservations = () => {
     enabled: modalOpen,
   });
 
-  if (!data) {
+  if (error) return <div>Errore: {error.message}</div>;
+
+  if (!isLoading && !data) {
     return (
       <div className="mx-10 mt-5">
         <h1>Prenotazioni</h1>
@@ -115,7 +143,7 @@ export const Reservations = () => {
         }
         initialData={selectedReservation}
         onSubmit={handleSubmit}
-        isLoading={isLoading}
+        isLoading={isSaving}
         renderFields={({ formData, handleChange, setFormData }) => (
           <>
             <div className="flex flex-col gap-1.5">
@@ -128,7 +156,7 @@ export const Reservations = () => {
                 type="date"
                 value={formData.date ?? ""}
                 onChange={handleChange}
-                disabled={isLoading}
+                disabled={isSaving}
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -144,7 +172,7 @@ export const Reservations = () => {
                 onChange={handleChange}
                 placeholder="Mario"
                 required
-                disabled={isLoading}
+                disabled={isSaving}
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -160,7 +188,7 @@ export const Reservations = () => {
                 onChange={handleChange}
                 placeholder="Rossi"
                 required
-                disabled={isLoading}
+                disabled={isSaving}
               />
             </div>
             <div className="flex flex-col gap-1.5">

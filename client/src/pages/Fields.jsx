@@ -98,6 +98,7 @@ export const Fields = () => {
                   variant="quiet"
                   size="icon"
                   aria-label="Elimina campo"
+                  disabled={isDeleting}
                   className="-mr-2"
                   onClick={() => {
                     if (window.confirm("Sei sicuro di voler eliminare questo campo?")) {

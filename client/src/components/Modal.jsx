@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,8 +20,10 @@ import { cn } from "@/lib/utils";
  * - onSubmit    {function} - callback chiamata con i dati del form: (formData) => void
  * - isLoading   {boolean}  - disabilita il form durante la mutation
  */
-const Modal = ({
-  isOpen,
+// Il contenuto viene montato a ogni apertura: lo stato del form parte sempre dai dati aggiornati
+const Modal = ({ isOpen, ...props }) => (isOpen ? <ModalContent {...props} /> : null);
+
+const ModalContent = ({
   onClose,
   title = "Form",
   fields = [],
@@ -30,25 +32,16 @@ const Modal = ({
   onSubmit,
   isLoading = false,
 }) => {
-  const buildEmptyState = () =>
-    fields.reduce(
+  const [formData, setFormData] = useState(() => {
+    const emptyState = fields.reduce(
       (acc, field) => ({
         ...acc,
         [field.name]: field.type === "checkbox" ? false : "",
       }),
       {},
     );
-
-  const [formData, setFormData] = useState(buildEmptyState);
-
-  // Popola il form quando si apre in edit mode o si resetta in add mode
-  useEffect(() => {
-    if (isOpen) {
-      setFormData(initialData ? { ...buildEmptyState(), ...initialData } : buildEmptyState());
-    }
-  }, [isOpen, initialData]);
-
-  if (!isOpen) return null;
+    return initialData ? { ...emptyState, ...initialData } : emptyState;
+  });
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;

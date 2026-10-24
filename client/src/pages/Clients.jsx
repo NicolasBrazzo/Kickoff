@@ -100,6 +100,7 @@ export const Clients = () => {
                   variant="quiet"
                   size="icon"
                   aria-label="Elimina cliente"
+                  disabled={isDeleting}
                   className="-mr-2"
                   onClick={() => {
                     if (window.confirm("Sei sicuro di voler eliminare questo cliente?")) {

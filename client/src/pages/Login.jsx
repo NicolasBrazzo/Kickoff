@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 import { showSuccess } from "../utils/toast";
 import Loader from "../components/Loader";
 import { Button } from "@/components/ui/button";
@@ -12,10 +11,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   showSuccess("AQOOOO");
-  // }, [])
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -81,7 +76,7 @@ export const Login = () => {
             <Button>Login</Button>
 
             <div className="flex justify-center">
-              <Button variant="ghost">Verifica prenotazione</Button>
+              <Button type="button" variant="ghost">Verifica prenotazione</Button>
             </div>
           </form>
         </div>

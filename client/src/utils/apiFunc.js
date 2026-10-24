@@ -1,8 +1,4 @@
-// const API_URL = import.meta.env.VITE_API_URL;
-
 const API_URL = import.meta.env.VITE_API_URL;
-
-const isLocal = API_URL.includes("localhost") || API_URL.includes("127.0.0.1");
 
 export const apiFetch = (endpoint, options = {}) => {
     return fetch(API_URL + endpoint, {
@@ -10,16 +6,6 @@ export const apiFetch = (endpoint, options = {}) => {
         ...options
     });
 };
-
-// export const apiFetch = (endpoint, options = {}) => {
-//   const finalEndpoint =
-//     isLocal && !endpoint.endsWith(".php") ? `${endpoint}.php` : endpoint;
-
-//   return fetch(API_URL + endpoint, {
-//     credentials: "include",
-//     ...options,
-//   });
-// };
 
 export const copyInviteCode = (copyCode) => {
   navigator.clipboard.writeText(copyCode);
