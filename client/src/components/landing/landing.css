@@ -46,6 +46,67 @@
   to   { background-position: -184.03px 0; }
 }
 
+/* Formazione: il campo sotto la hero si apre allo scroll.
+   --p ed --e arrivano da useScrollProgress, --ux/--uy/--s/--r da ogni elemento. */
+.kick-xp-content {
+  transform: scale(calc(0.95 + 0.05 * var(--e, 0)));
+  transform-origin: 50% 30%;
+  opacity: calc(0.3 + 0.7 * var(--e, 0));
+}
+
+.kick-xp-overlay {
+  --m: max(80vw, 115vh);
+  --cw: min(clamp(64px, 17vw, 124px), 14vh);
+}
+
+.kick-tile,
+.kick-pc {
+  --fly-x: calc(var(--ux) * var(--m) * var(--e, 0) * var(--s));
+  --fly-y: calc(var(--uy) * var(--m) * var(--e, 0) * var(--s));
+  will-change: transform;
+}
+
+.kick-tile {
+  width: calc(25% + 1px);
+  height: calc(33.34% + 1px);
+  transform: translate(var(--fly-x), var(--fly-y));
+}
+
+/* Le linee del campo spariscono nel primo 30% dello scroll */
+.kick-xp-lines {
+  opacity: clamp(0, calc((0.3 - var(--p, 0)) * 6), 1);
+}
+
+.kick-hint-icon {
+  animation: kick-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes kick-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+
+/* Carta del giocatore: misure in proporzione a --cw */
+.kick-pc {
+  width: var(--cw);
+  height: calc(var(--cw) * 1.25);
+  margin: calc(var(--cw) * -0.625) 0 0 calc(var(--cw) * -0.5);
+  padding: calc(var(--cw) * 0.1);
+  transform: translate(var(--fly-x), var(--fly-y)) rotate(calc(var(--r) * var(--e, 0)));
+}
+
+.kick-pc-top {
+  font-size: max(9px, calc(var(--cw) * 0.1));
+}
+
+.kick-pc-time {
+  font-size: calc(var(--cw) * 0.27);
+}
+
+.kick-pc-name {
+  font-size: max(9px, calc(var(--cw) * 0.11));
+}
+
 /* FAQ: niente marcatore nativo del summary */
 .kick-faq summary {
   list-style: none;
@@ -58,7 +119,18 @@
 @media (prefers-reduced-motion: reduce) {
   .kick-pulse,
   .kick-fade,
-  .kick-turf {
+  .kick-turf,
+  .kick-hint-icon {
     animation: none;
+  }
+
+  /* Niente voli: il campo si dissolve sul posto */
+  .kick-tile,
+  .kick-pc {
+    transform: none;
+  }
+
+  .kick-xp-panel {
+    opacity: calc(1 - var(--e, 0));
   }
 }

@@ -1,8 +1,11 @@
 import {
   Bell,
   CalendarCheck,
+  CalendarX,
+  Clock,
   LayoutGrid,
   MessageSquare,
+  Phone,
   RotateCcw,
   Smartphone,
 } from "lucide-react";
@@ -44,6 +47,63 @@ export const bookingToast = {
   title: "Nuova prenotazione",
   detail: "Calcetto · 21:00 · Luca R.",
   time: "ora",
+};
+
+export const problem = {
+  eyebrow: "Il problema",
+  title: "Gestire gli orari non dovrebbe essere un secondo lavoro.",
+  items: [
+    {
+      icon: Phone,
+      title: "Il telefono non smette mai",
+      text: "Chiamate e messaggi a ogni ora solo per sapere se il campo è libero.",
+    },
+    {
+      icon: CalendarX,
+      title: "Le doppie prenotazioni",
+      text: "Agenda, fogli Excel, chat: basta una svista e due squadre arrivano alla stessa ora.",
+    },
+    {
+      icon: Clock,
+      title: "I buchi dell'ultimo minuto",
+      text: "Chi disdice tardi lascia un orario vuoto che nessuno riesce più a riempire.",
+    },
+  ],
+};
+
+// Campo che si apre allo scroll: 12 tessere (griglia 4x3, in ordine di riga)
+// e 11 giocatori in 4-3-3. ux/uy = direzione di volo, s = quanto lontano, r = rotazione finale
+export const formation = {
+  label: "La squadra di oggi",
+  meta: "11 prenotazioni, 4 campi",
+  hint: "Scorri",
+  tiles: [
+    { ux: -0.75, uy: -0.66, s: 1 },
+    { ux: -0.35, uy: -0.94, s: 1.15 },
+    { ux: 0.35, uy: -0.94, s: 1.1 },
+    { ux: 0.75, uy: -0.66, s: 1.05 },
+    { ux: -1, uy: 0, s: 1.1 },
+    { ux: -0.97, uy: -0.25, s: 1.3 },
+    { ux: 0.97, uy: 0.25, s: 1.25 },
+    { ux: 1, uy: 0, s: 1.05 },
+    { ux: -0.75, uy: 0.66, s: 1.15 },
+    { ux: -0.35, uy: 0.94, s: 1.05 },
+    { ux: 0.35, uy: 0.94, s: 1.2 },
+    { ux: 0.75, uy: 0.66, s: 1 },
+  ],
+  players: [
+    { left: 26, top: 18, ux: -0.6, uy: -0.8, r: -18, s: 1.1, sport: "Tennis", time: "18:00", name: "Giulia M." },
+    { left: 50, top: 15, ux: 0, uy: -1, r: 6, s: 1.25, sport: "Calcetto", time: "21:00", name: "Luca R.", isNew: true },
+    { left: 74, top: 18, ux: 0.6, uy: -0.8, r: 20, s: 1.05, sport: "Padel", time: "19:30", name: "Andrea B." },
+    { left: 30, top: 41, ux: -0.91, uy: -0.41, r: -24, s: 1.2, sport: "Basket", time: "20:00", name: "Sara T." },
+    { left: 50, top: 38, ux: 0.25, uy: -0.97, r: 12, s: 1.35, sport: "Calcetto", time: "17:00", name: "Marco D." },
+    { left: 70, top: 41, ux: 0.91, uy: -0.41, r: 16, s: 1.15, sport: "Tennis", time: "09:00", name: "Elena P." },
+    { left: 14, top: 62, ux: -0.95, uy: 0.32, r: -30, s: 1, sport: "Padel", time: "12:30", name: "Paolo F." },
+    { left: 38, top: 67, ux: -0.58, uy: 0.82, r: -10, s: 1.3, sport: "Calcetto", time: "22:00", name: "Davide C." },
+    { left: 62, top: 67, ux: 0.58, uy: 0.82, r: 14, s: 1.1, sport: "Basket", time: "16:00", name: "Chiara L." },
+    { left: 86, top: 62, ux: 0.95, uy: 0.32, r: 28, s: 1.05, sport: "Tennis", time: "11:00", name: "Fabio N." },
+    { left: 50, top: 85, ux: -0.2, uy: 0.98, r: -8, s: 1.2, sport: "Calcetto", time: "20:00", name: "Simone G." },
+  ],
 };
 
 export const solution = {

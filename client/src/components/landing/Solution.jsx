@@ -4,7 +4,7 @@ import { solution } from "./content";
 import { grid, h2, lead, section, wrap } from "./layout";
 
 export const Solution = () => (
-  <section id="vantaggi" className={`${section} scroll-mt-28`}>
+  <section id="vantaggi" className={`${section} scroll-mt-28 pt-0 md:pt-0`}>
     <div className={wrap}>
       <div className={grid}>
         <div className="col-span-full md:col-span-6">
