@@ -47,7 +47,7 @@ const HeroLines = () => (
 );
 
 export const Hero = () => (
-  <section className="px-2.5 pt-2.5 md:px-3.5 md:pt-3.5">
+  <section className="kick-on-dark px-2.5 pt-2.5 md:px-3.5 md:pt-3.5">
     <div className="relative flex flex-col kick-turf overflow-hidden rounded-t-lg text-cream md:min-h-[880px]">
       <HeroLines />
 

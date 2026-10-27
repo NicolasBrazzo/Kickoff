@@ -8,9 +8,9 @@ export const LandingNav = () => {
   const { user } = useAuth();
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-5 z-20 px-5 md:top-6 md:px-8">
+    <header className="kick-on-dark pointer-events-none fixed inset-x-0 top-5 z-20 px-5 md:top-6 md:px-8">
       <div className="pointer-events-auto mx-auto flex h-16 max-w-[1120px] items-center justify-between gap-6 rounded-lg border border-cream/8 bg-ink/94 pr-2.5 pl-[22px] text-cream backdrop-blur-md">
-        <a href="#top" aria-label="Kickoff, torna all'inizio" className="transition-colors hover:text-sage">
+        <a href="#top" aria-label="Kickoff, torna all'inizio" className="py-2 transition-colors hover:text-sage">
           <Logo />
         </a>
 

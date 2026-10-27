@@ -107,6 +107,30 @@
   font-size: max(9px, calc(var(--cw) * 0.11));
 }
 
+/* Comparsa allo scroll: useReveal mette data-visible quando l'elemento entra in vista */
+.kick-reveal:not([data-visible]) {
+  opacity: 0;
+}
+
+.kick-reveal[data-visible] {
+  animation: kick-rise 0.6s ease both;
+}
+
+@keyframes kick-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Focus da tastiera: leaf sulle superfici chiare, sage su quelle scure */
+.kick-landing :is(a, button, summary):focus-visible {
+  outline: 2px solid var(--color-leaf);
+  outline-offset: 3px;
+}
+
+.kick-landing .kick-on-dark :is(a, button, summary):focus-visible {
+  outline-color: var(--color-sage);
+}
+
 /* FAQ: niente marcatore nativo del summary */
 .kick-faq summary {
   list-style: none;
@@ -128,6 +152,15 @@
   .kick-tile,
   .kick-pc {
     transform: none;
+  }
+
+  /* Contenuti subito visibili, senza comparsa */
+  .kick-reveal:not([data-visible]) {
+    opacity: 1;
+  }
+
+  .kick-reveal[data-visible] {
+    animation: none;
   }
 
   .kick-xp-panel {

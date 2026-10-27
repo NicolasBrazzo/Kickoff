@@ -20,7 +20,7 @@ export const LandingFooter = () => (
               <ul className="flex flex-col gap-2.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-[15px] text-stone transition-colors hover:text-ink">
+                    <a href={link.href} className="-my-[5px] inline-block py-[5px] text-[15px] text-stone transition-colors hover:text-ink">
                       {link.label}
                     </a>
                   </li>

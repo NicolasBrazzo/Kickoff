@@ -7,7 +7,7 @@ export const DayTimeline = () => (
   <section id="come-funziona" className={`${section} scroll-mt-28 border-t border-ink/10`}>
     <div className={wrap}>
       <div className={grid}>
-        <div className="col-span-full self-start md:sticky md:top-[130px] md:col-span-5">
+        <div className="kick-reveal col-span-full self-start md:sticky md:top-[130px] md:col-span-5">
           <Eyebrow>{timeline.eyebrow}</Eyebrow>
           <h2 className={h2}>{timeline.title}</h2>
         </div>
@@ -19,7 +19,7 @@ export const DayTimeline = () => (
             return (
               <li
                 key={i}
-                className="group relative grid grid-cols-[44px_minmax(0,1fr)] gap-x-5 pb-10 last:pb-0 before:absolute before:top-12 before:bottom-1 before:left-[21px] before:w-px before:bg-ink/18 last:before:hidden"
+                className="kick-reveal group relative grid grid-cols-[44px_minmax(0,1fr)] gap-x-5 pb-10 last:pb-0 before:absolute before:top-12 before:bottom-1 before:left-[21px] before:w-px before:bg-ink/18 last:before:hidden"
               >
                 <span
                   className={cn(

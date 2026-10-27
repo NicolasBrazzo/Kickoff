@@ -3,7 +3,7 @@ export const FeatureCard = ({ icon, title, text }) => {
   const Icon = icon;
 
   return (
-    <article className="group flex min-h-[280px] flex-col justify-between gap-10 rounded-lg bg-forest p-7 text-cream transition-[transform,box-shadow] duration-350 ease-in-out hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(18,32,32,.16)] motion-reduce:transition-none">
+    <article className="kick-reveal group flex min-h-[280px] flex-col justify-between gap-10 rounded-lg bg-forest p-7 text-cream transition-[translate,box-shadow] duration-350 ease-in-out hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(18,32,32,.16)] motion-reduce:transition-none">
       <span className="flex size-12 items-center justify-center rounded-full border border-cream/18 text-sage transition-colors duration-350 group-hover:border-sage group-hover:bg-sage group-hover:text-ink">
         <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
       </span>

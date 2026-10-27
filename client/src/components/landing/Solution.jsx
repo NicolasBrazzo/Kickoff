@@ -7,11 +7,11 @@ export const Solution = () => (
   <section id="vantaggi" className={`${section} scroll-mt-28 pt-0 md:pt-0`}>
     <div className={wrap}>
       <div className={grid}>
-        <div className="col-span-full md:col-span-6">
+        <div className="kick-reveal col-span-full md:col-span-6">
           <Eyebrow>{solution.eyebrow}</Eyebrow>
           <h2 className={h2}>{solution.title}</h2>
         </div>
-        <div className="col-span-full self-end md:col-start-8 md:col-end-13">
+        <div className="kick-reveal col-span-full self-end md:col-start-8 md:col-end-13">
           <p className={lead}>{solution.lead}</p>
         </div>
 

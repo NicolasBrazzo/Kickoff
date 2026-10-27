@@ -32,7 +32,7 @@ const CourtLines = () => (
 export const CtaBand = () => (
   <section id="registrati" className="scroll-mt-28 pb-24">
     <div className={wrap}>
-      <div className="relative overflow-hidden rounded-lg bg-turf px-6 py-14 text-cream md:px-[72px] md:py-24">
+      <div className="kick-reveal kick-on-dark relative overflow-hidden rounded-lg bg-turf px-6 py-14 text-cream md:px-[72px] md:py-24">
         <CourtLines />
         <div className="relative max-w-[640px]">
           <h2 className={cn(h2, "mt-0")}>{ctaBand.title}</h2>
