@@ -1,0 +1,64 @@
+/* Stili della landing che in Tailwind sarebbero scomodi */
+
+/* Slot "appena prenotato": alone che pulsa piano */
+.kick-pulse {
+  animation: kick-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes kick-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 49, 23, 0); }
+  50%      { box-shadow: 0 0 0 5px rgba(240, 49, 23, 0.22); }
+}
+
+/* Comparsa della hero al caricamento */
+.kick-fade {
+  animation: kick-fadeup 0.9s ease both;
+}
+
+.kick-fade-2 {
+  animation-delay: 0.12s;
+}
+
+.kick-fade-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes kick-fadeup {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Strisce dell'erba: bordi netti (non sfuma), ancorate alla finestra.
+   A 102° il periodo orizzontale è 180 / sin(102°) = 184.03px, quindi il loop non scatta. */
+.kick-turf {
+  background-color: var(--color-turf);
+  background-image: repeating-linear-gradient(
+    102deg,
+    var(--color-turf-stripe) 0 90px,
+    var(--color-turf) 90px 180px
+  );
+  background-attachment: fixed;
+  animation: kick-turf 8s linear infinite;
+}
+
+@keyframes kick-turf {
+  from { background-position: 0 0; }
+  to   { background-position: -184.03px 0; }
+}
+
+/* FAQ: niente marcatore nativo del summary */
+.kick-faq summary {
+  list-style: none;
+}
+
+.kick-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kick-pulse,
+  .kick-fade,
+  .kick-turf {
+    animation: none;
+  }
+}
